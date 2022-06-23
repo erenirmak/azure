@@ -1,0 +1,9 @@
+{
+	"name": "adfOra1",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "44e41195-3e8e-465b-9ee3-e6d66221afd6",
+		"tenantId": "c619f0de-74b5-49be-8b8e-ade3a6488351"
+	}
+}
