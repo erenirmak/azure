@@ -1,0 +1,165 @@
+{
+	"name": "CopyPipeline_sw8",
+	"properties": {
+		"description": "Denemeler denemeler ",
+		"activities": [
+			{
+				"name": "ForEach_sw8",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_sw8",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "HR.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "newcontainer//@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "OracleSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": true,
+								"stagingSettings": {
+									"linkedServiceName": {
+										"referenceName": "AzureBlobStorage1",
+										"type": "LinkedServiceReference"
+									},
+									"path": "newcontainer"
+								},
+								"logSettings": {
+									"enableCopyActivityLog": true,
+									"copyActivityLogSettings": {
+										"logLevel": "Warning",
+										"enableReliableLogging": false
+									},
+									"logLocationSettings": {
+										"linkedServiceName": {
+											"referenceName": "AzureBlobStorage1",
+											"type": "LinkedServiceReference"
+										},
+										"path": "logging"
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_sw8",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_sw8",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "COUNTRIES"
+						},
+						"destination": {
+							"fileName": "HRCOUNTRIES.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "DEPARTMENTS"
+						},
+						"destination": {
+							"fileName": "HRDEPARTMENTS.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "EMPLOYEES"
+						},
+						"destination": {
+							"fileName": "HREMPLOYEES.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "JOB_HISTORY"
+						},
+						"destination": {
+							"fileName": "HRJOB_HISTORY.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "JOBS"
+						},
+						"destination": {
+							"fileName": "HRJOBS.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "LOCATIONS"
+						},
+						"destination": {
+							"fileName": "HRLOCATIONS.csv"
+						}
+					},
+					{
+						"source": {
+							"table": "REGIONS"
+						},
+						"destination": {
+							"fileName": "HRREGIONS.csv"
+						}
+					}
+				]
+			}
+		},
+		"annotations": []
+	}
+}
