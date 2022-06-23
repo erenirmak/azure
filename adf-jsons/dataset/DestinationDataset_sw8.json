@@ -6,8 +6,26 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"cw_fileName": {
+			"HREMPLOYEES.csv": {
 				"type": "String"
+			},
+			"HRDEPARTMENTS.csv": {
+				"type": "string"
+			},
+			"HRLOCATIONS.csv": {
+				"type": "string"
+			},
+			"HRCOUNTRIES.csv": {
+				"type": "string"
+			},
+			"HRJOBS.csv": {
+				"type": "string"
+			},
+			"HRJOB_HISTORY.csv": {
+				"type": "string"
+			},
+			"HRREGIONS.csv": {
+				"type": "string"
 			}
 		},
 		"annotations": [],

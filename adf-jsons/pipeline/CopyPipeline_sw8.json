@@ -88,7 +88,7 @@
 									"referenceName": "DestinationDataset_sw8",
 									"type": "DatasetReference",
 									"parameters": {
-										"cw_fileName": "@item().destination.fileName"
+										"HREMPLOYEES.csv": "@item().destination.fileName"
 									}
 								}
 							]

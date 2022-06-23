@@ -1,0 +1,58 @@
+{
+	"name": "Product",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Product_data",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "AdventureWorks Sales.xlsx",
+				"container": "newcontainer"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "ProductKey",
+				"type": "String"
+			},
+			{
+				"name": "SKU",
+				"type": "String"
+			},
+			{
+				"name": "Product",
+				"type": "String"
+			},
+			{
+				"name": "Standard Cost",
+				"type": "String"
+			},
+			{
+				"name": "Color",
+				"type": "String"
+			},
+			{
+				"name": "List Price",
+				"type": "String"
+			},
+			{
+				"name": "Model",
+				"type": "String"
+			},
+			{
+				"name": "Subcategory",
+				"type": "String"
+			},
+			{
+				"name": "Category",
+				"type": "String"
+			}
+		]
+	}
+}

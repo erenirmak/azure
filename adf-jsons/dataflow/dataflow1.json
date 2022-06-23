@@ -1,0 +1,118 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "employees",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "AdventureWorks",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "Product",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
+				},
+				{
+					"dataset": {
+						"referenceName": "FinancialSample",
+						"type": "DatasetReference"
+					},
+					"name": "source4"
+				},
+				{
+					"name": "source5"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          EMPLOYEE_ID as string,",
+				"          FIRST_NAME as string,",
+				"          LAST_NAME as string,",
+				"          EMAIL as string,",
+				"          PHONE_NUMBER as string,",
+				"          HIRE_DATE as string,",
+				"          JOB_ID as string,",
+				"          SALARY as string,",
+				"          COMMISSION_PCT as string,",
+				"          MANAGER_ID as string,",
+				"          DEPARTMENT_ID as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          SalesOrderLineKey as string,",
+				"          ResellerKey as string,",
+				"          CustomerKey as string,",
+				"          ProductKey as string,",
+				"          OrderDateKey as string,",
+				"          DueDateKey as string,",
+				"          ShipDateKey as string,",
+				"          SalesTerritoryKey as string,",
+				"          {Order Quantity} as string,",
+				"          {Unit Price} as string,",
+				"          {Extended Amount} as string,",
+				"          {Unit Price Discount Pct} as string,",
+				"          {Product Standard Cost} as string,",
+				"          {Total Product Cost} as string,",
+				"          {Sales Amount} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source(output(",
+				"          ProductKey as string,",
+				"          SKU as string,",
+				"          Product as string,",
+				"          {Standard Cost} as string,",
+				"          Color as string,",
+				"          {List Price} as string,",
+				"          Model as string,",
+				"          Subcategory as string,",
+				"          Category as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source3",
+				"source(output(",
+				"          Segment as string,",
+				"          Country as string,",
+				"          Product as string,",
+				"          {Discount Band} as string,",
+				"          {Units Sold} as string,",
+				"          {Manufacturing Price} as string,",
+				"          {Sale Price} as string,",
+				"          {Gross Sales} as string,",
+				"          Discounts as string,",
+				"          Sales as string,",
+				"          COGS as string,",
+				"          Profit as string,",
+				"          Date as string,",
+				"          {Month Number} as string,",
+				"          {Month Name} as string,",
+				"          Year as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source4",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source5"
+			]
+		}
+	}
+}
