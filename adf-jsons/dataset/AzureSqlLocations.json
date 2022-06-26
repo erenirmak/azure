@@ -1,0 +1,43 @@
+{
+	"name": "AzureSqlLocations",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "LOCATION_ID",
+				"type": "decimal",
+				"precision": 4,
+				"scale": 0
+			},
+			{
+				"name": "STREET_ADDRESS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "POSTAL_CODE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CITY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "STATE_PROVINCE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "COUNTRY_ID",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "HR",
+			"table": "LOCATIONS"
+		}
+	}
+}
