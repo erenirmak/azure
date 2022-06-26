@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "employees",
+						"referenceName": "AzureSQLemployees",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -34,27 +34,50 @@
 				},
 				{
 					"name": "source5"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlDepartments",
+						"type": "DatasetReference"
+					},
+					"name": "source6"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlLocations",
+						"type": "DatasetReference"
+					},
+					"name": "source7"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "join1"
+				},
+				{
+					"name": "join2"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
-				"          EMPLOYEE_ID as string,",
+				"          EMPLOYEE_ID as decimal(6,0),",
 				"          FIRST_NAME as string,",
 				"          LAST_NAME as string,",
 				"          EMAIL as string,",
 				"          PHONE_NUMBER as string,",
-				"          HIRE_DATE as string,",
+				"          HIRE_DATE as timestamp,",
 				"          JOB_ID as string,",
-				"          SALARY as string,",
-				"          COMMISSION_PCT as string,",
-				"          MANAGER_ID as string,",
-				"          DEPARTMENT_ID as string",
+				"          SALARY as decimal(8,2),",
+				"          COMMISSION_PCT as decimal(2,2),",
+				"          MANAGER_ID as decimal(6,0),",
+				"          DEPARTMENT_ID as decimal(4,0)",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'SELECT * FROM HR.EMPLOYEES;\\nSELECT * FROM HR.DEPARTMENTS;\\nSELECT * FROM HR.REGIONS;\\nSELECT * FROM HR.LOCATIONS;\\nSELECT * FROM HR.COUNTRIES;\\nSELECT * FROM HR.JOBS;\\nSELECT * FROM HR.JOB_HISTORY;',",
+				"     format: 'query') ~> source1",
 				"source(output(",
 				"          SalesOrderLineKey as string,",
 				"          ResellerKey as string,",
@@ -111,7 +134,39 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source4",
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source5"
+				"     validateSchema: false) ~> source5",
+				"source(output(",
+				"          DEPARTMENT_ID as decimal(4,0),",
+				"          DEPARTMENT_NAME as string,",
+				"          MANAGER_ID as decimal(6,0),",
+				"          LOCATION_ID as decimal(4,0)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source6",
+				"source(output(",
+				"          LOCATION_ID as decimal(4,0),",
+				"          STREET_ADDRESS as string,",
+				"          POSTAL_CODE as string,",
+				"          CITY as string,",
+				"          STATE_PROVINCE as string,",
+				"          COUNTRY_ID as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source7",
+				"source1, source6 join(source1@DEPARTMENT_ID == source6@DEPARTMENT_ID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1, source7 join(source6@LOCATION_ID == source7@LOCATION_ID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2"
 			]
 		}
 	}
