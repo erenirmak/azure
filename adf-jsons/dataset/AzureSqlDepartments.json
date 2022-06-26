@@ -1,0 +1,39 @@
+{
+	"name": "AzureSqlDepartments",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DEPARTMENT_ID",
+				"type": "decimal",
+				"precision": 4,
+				"scale": 0
+			},
+			{
+				"name": "DEPARTMENT_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MANAGER_ID",
+				"type": "decimal",
+				"precision": 6,
+				"scale": 0
+			},
+			{
+				"name": "LOCATION_ID",
+				"type": "decimal",
+				"precision": 4,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "HR",
+			"table": "DEPARTMENTS"
+		}
+	}
+}
