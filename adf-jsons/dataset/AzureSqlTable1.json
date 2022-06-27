@@ -1,0 +1,37 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "JOB_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "JOB_TITLE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MIN_SALARY",
+				"type": "decimal",
+				"precision": 6,
+				"scale": 0
+			},
+			{
+				"name": "MAX_SALARY",
+				"type": "decimal",
+				"precision": 6,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "HR",
+			"table": "JOBS"
+		}
+	}
+}

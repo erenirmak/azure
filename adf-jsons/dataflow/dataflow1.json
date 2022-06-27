@@ -48,15 +48,68 @@
 						"type": "DatasetReference"
 					},
 					"name": "source7"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlRegions",
+						"type": "DatasetReference"
+					},
+					"name": "source8"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlCountries",
+						"type": "DatasetReference"
+					},
+					"name": "source9"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source10"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
+					},
+					"name": "source11"
+				},
+				{
+					"name": "source12"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sink1"
+				},
+				{
+					"name": "sink2"
+				}
+			],
 			"transformations": [
 				{
 					"name": "join1"
 				},
 				{
 					"name": "join2"
+				},
+				{
+					"name": "join3"
+				},
+				{
+					"name": "join4"
+				},
+				{
+					"name": "join5"
+				},
+				{
+					"name": "join6"
+				},
+				{
+					"name": "compose1"
 				}
 			],
 			"scriptLines": [
@@ -157,6 +210,47 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source7",
+				"source(output(",
+				"          REGION_ID as double,",
+				"          REGION_NAME as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source8",
+				"source(output(",
+				"          COUNTRY_ID as string,",
+				"          COUNTRY_NAME as string,",
+				"          REGION_ID as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source9",
+				"source(output(",
+				"          JOB_ID as string,",
+				"          JOB_TITLE as string,",
+				"          MIN_SALARY as decimal(6,0),",
+				"          MAX_SALARY as decimal(6,0)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source10",
+				"source(output(",
+				"          EMPLOYEE_ID as decimal(6,0),",
+				"          START_DATE as timestamp,",
+				"          END_DATE as timestamp,",
+				"          JOB_ID as string,",
+				"          DEPARTMENT_ID as decimal(4,0)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source11",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source12",
+				"compose(composition: 'undefined') ~> compose1@(temporary)",
 				"source1, source6 join(source1@DEPARTMENT_ID == source6@DEPARTMENT_ID,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
@@ -166,7 +260,43 @@
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join2"
+				"     broadcast: 'auto')~> join2",
+				"join2, source9 join(source7@COUNTRY_ID == source9@COUNTRY_ID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join3",
+				"join3, source8 join(source9@REGION_ID == source8@REGION_ID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join4",
+				"join4, source10 join(source1@JOB_ID == source10@JOB_ID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join5",
+				"join5, source11 join(source1@JOB_ID == source11@JOB_ID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join6",
+				"join6 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     store: 'cache',",
+				"     format: 'inline',",
+				"     output: false,",
+				"     saveOrder: 1) ~> sink1",
+				"source2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     store: 'cache',",
+				"     format: 'inline',",
+				"     output: false,",
+				"     saveOrder: 1) ~> sink2"
 			]
 		}
 	}

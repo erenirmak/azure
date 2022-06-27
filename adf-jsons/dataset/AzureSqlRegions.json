@@ -1,0 +1,26 @@
+{
+	"name": "AzureSqlRegions",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "REGION_ID",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "REGION_NAME",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "HR",
+			"table": "REGIONS"
+		}
+	}
+}

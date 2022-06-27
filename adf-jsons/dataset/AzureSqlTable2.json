@@ -1,0 +1,43 @@
+{
+	"name": "AzureSqlTable2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EMPLOYEE_ID",
+				"type": "decimal",
+				"precision": 6,
+				"scale": 0
+			},
+			{
+				"name": "START_DATE",
+				"type": "datetime2",
+				"scale": 0
+			},
+			{
+				"name": "END_DATE",
+				"type": "datetime2",
+				"scale": 0
+			},
+			{
+				"name": "JOB_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DEPARTMENT_ID",
+				"type": "decimal",
+				"precision": 4,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "HR",
+			"table": "JOB_HISTORY"
+		}
+	}
+}

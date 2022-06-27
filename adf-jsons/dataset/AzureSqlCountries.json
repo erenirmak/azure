@@ -1,0 +1,30 @@
+{
+	"name": "AzureSqlCountries",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "COUNTRY_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "COUNTRY_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "REGION_ID",
+				"type": "float",
+				"precision": 15
+			}
+		],
+		"typeProperties": {
+			"schema": "HR",
+			"table": "COUNTRIES"
+		}
+	}
+}
