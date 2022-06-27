@@ -33,9 +33,6 @@
 					"name": "source4"
 				},
 				{
-					"name": "source5"
-				},
-				{
 					"dataset": {
 						"referenceName": "AzureSqlDepartments",
 						"type": "DatasetReference"
@@ -76,17 +73,19 @@
 						"type": "DatasetReference"
 					},
 					"name": "source11"
-				},
-				{
-					"name": "source12"
 				}
 			],
 			"sinks": [
 				{
-					"name": "sink1"
-				},
-				{
-					"name": "sink2"
+					"linkedService": {
+						"referenceName": "AzureSqlDatabase1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "linkedServiceBlob",
+						"type": "LinkedServiceReference"
+					}
 				}
 			],
 			"transformations": [
@@ -107,9 +106,6 @@
 				},
 				{
 					"name": "join6"
-				},
-				{
-					"name": "compose1"
 				}
 			],
 			"scriptLines": [
@@ -186,8 +182,6 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source4",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source5",
 				"source(output(",
 				"          DEPARTMENT_ID as decimal(4,0),",
 				"          DEPARTMENT_NAME as string,",
@@ -248,9 +242,6 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source11",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source12",
-				"compose(composition: 'undefined') ~> compose1@(temporary)",
 				"source1, source6 join(source1@DEPARTMENT_ID == source6@DEPARTMENT_ID,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
@@ -283,20 +274,19 @@
 				"     broadcast: 'auto')~> join6",
 				"join6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'oraSQL',",
+				"     tableName: 'bigTable',",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     stagingSchemaName: '',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     store: 'cache',",
-				"     format: 'inline',",
-				"     output: false,",
-				"     saveOrder: 1) ~> sink1",
-				"source2 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     store: 'cache',",
-				"     format: 'inline',",
-				"     output: false,",
-				"     saveOrder: 1) ~> sink2"
+				"     saveOrder: 1,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 			]
 		}
 	}
