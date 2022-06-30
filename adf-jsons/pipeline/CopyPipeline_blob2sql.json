@@ -1,0 +1,244 @@
+{
+	"name": "CopyPipeline_blob2sql",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_l8i",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "newcontainer//Financial Sample.xlsx"
+					},
+					{
+						"name": "Destination",
+						"value": ".finance"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Segment",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Segment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Product",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Product",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Discount Band",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Discount Band",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Units Sold",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Units Sold",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Manufacturing Price",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Manufacturing Price",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Sale Price",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Sale Price",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Gross Sales",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Gross Sales",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Discounts",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Discounts",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Sales",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Sales",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COGS",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "COGS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Profit",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Profit",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Month Number",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Month Number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Month Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Month Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Year",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Year",
+									"type": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_l8i",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_l8i",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
