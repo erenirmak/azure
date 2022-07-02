@@ -73,6 +73,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "source11"
+				},
+				{
+					"dataset": {
+						"referenceName": "SourceDataset_l8i",
+						"type": "DatasetReference"
+					},
+					"name": "source12"
 				}
 			],
 			"sinks": [
@@ -242,6 +249,27 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source11",
+				"source(output(",
+				"          Segment as string,",
+				"          Country as string,",
+				"          Product as string,",
+				"          {Discount Band} as string,",
+				"          {Units Sold} as string,",
+				"          {Manufacturing Price} as string,",
+				"          {Sale Price} as string,",
+				"          {Gross Sales} as string,",
+				"          Discounts as string,",
+				"          Sales as string,",
+				"          COGS as string,",
+				"          Profit as string,",
+				"          Date as string,",
+				"          {Month Number} as string,",
+				"          {Month Name} as string,",
+				"          Year as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source12",
 				"source1, source6 join(source1@DEPARTMENT_ID == source6@DEPARTMENT_ID,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
