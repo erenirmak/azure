@@ -1,5 +1,5 @@
 {
-	"name": "AzureSqlTable2",
+	"name": "AzureSQLJobHistory",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",

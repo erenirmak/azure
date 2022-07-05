@@ -3,112 +3,11 @@
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
-			"sources": [
-				{
-					"dataset": {
-						"referenceName": "AzureSQLemployees",
-						"type": "DatasetReference"
-					},
-					"name": "source1"
-				}
-			],
-			"sinks": [
-				{
-					"linkedService": {
-						"referenceName": "AzureSqlDatabase1",
-						"type": "LinkedServiceReference"
-					},
-					"name": "sink1",
-					"rejectedDataLinkedService": {
-						"referenceName": "linkedServiceBlob",
-						"type": "LinkedServiceReference"
-					}
-				}
-			],
-			"transformations": [
-				{
-					"name": "join1"
-				},
-				{
-					"name": "join2"
-				},
-				{
-					"name": "join3"
-				},
-				{
-					"name": "join4"
-				},
-				{
-					"name": "join5"
-				},
-				{
-					"name": "join6"
-				}
-			],
+			"sources": [],
+			"sinks": [],
+			"transformations": [],
 			"scriptLines": [
-				"source(output(",
-				"          EMPLOYEE_ID as decimal(6,0),",
-				"          FIRST_NAME as string,",
-				"          LAST_NAME as string,",
-				"          EMAIL as string,",
-				"          PHONE_NUMBER as string,",
-				"          HIRE_DATE as timestamp,",
-				"          JOB_ID as string,",
-				"          SALARY as decimal(8,2),",
-				"          COMMISSION_PCT as decimal(2,2),",
-				"          MANAGER_ID as decimal(6,0),",
-				"          DEPARTMENT_ID as decimal(4,0)",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     query: 'SELECT * FROM HR.EMPLOYEES;\\nSELECT * FROM HR.DEPARTMENTS;\\nSELECT * FROM HR.REGIONS;\\nSELECT * FROM HR.LOCATIONS;\\nSELECT * FROM HR.COUNTRIES;\\nSELECT * FROM HR.JOBS;\\nSELECT * FROM HR.JOB_HISTORY;',",
-				"     format: 'query') ~> source1",
-				"source1 join(source1@DEPARTMENT_ID == source6@DEPARTMENT_ID,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join1",
-				"join1 join(source6@LOCATION_ID == source7@LOCATION_ID,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join2",
-				"join2 join(source7@COUNTRY_ID == source9@COUNTRY_ID,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join3",
-				"join3 join(source9@REGION_ID == source8@REGION_ID,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join4",
-				"join4 join(source1@JOB_ID == source10@JOB_ID,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join5",
-				"join5 join(source1@JOB_ID == source11@JOB_ID,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join6",
-				"join6 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     format: 'table',",
-				"     store: 'sqlserver',",
-				"     schemaName: 'oraSQL',",
-				"     tableName: 'bigTable',",
-				"     insertable: true,",
-				"     updateable: false,",
-				"     deletable: false,",
-				"     upsertable: false,",
-				"     stagingSchemaName: '',",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 1,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+				""
 			]
 		}
 	}
