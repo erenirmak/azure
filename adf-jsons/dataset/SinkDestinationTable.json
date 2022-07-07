@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "sink",
-			"table": "emp_dept_locs"
+			"table": "empdeptlocs"
 		}
 	}
 }
