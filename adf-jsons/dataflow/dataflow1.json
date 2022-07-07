@@ -28,9 +28,9 @@
 			],
 			"sinks": [
 				{
-					"linkedService": {
-						"referenceName": "linkedService1",
-						"type": "LinkedServiceReference"
+					"dataset": {
+						"referenceName": "SinkDestinationTable",
+						"type": "DatasetReference"
 					},
 					"name": "sinktriplet"
 				}
@@ -95,15 +95,11 @@
 				"     broadcast: 'auto')~> empdeptlocs",
 				"empdeptlocs sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
 				"     format: 'table',",
-				"     store: 'sqlserver',",
-				"     schemaName: 'sink',",
-				"     tableName: 'empdeptlocs',",
-				"     insertable: true,",
-				"     updateable: false,",
-				"     deletable: false,",
-				"     upsertable: false,",
-				"     recreate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sinktriplet"
 			]
