@@ -17,8 +17,11 @@
 				"typeProperties": {
 					"storedProcedureName": "[sink].[sp_getVals]",
 					"storedProcedureParameters": {
-						"id": {
-							"value": "150",
+						"empid": {
+							"value": {
+								"value": "@pipeline().parameters.pEmp",
+								"type": "Expression"
+							},
 							"type": "Int32"
 						}
 					}
@@ -29,6 +32,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"pEmp": {
+				"type": "int",
+				"defaultValue": 125
+			}
+		},
 		"annotations": []
 	}
 }
