@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_getVals]",
+					"storedProcedureName": "[sink].[sp_getVals]",
 					"storedProcedureParameters": {
 						"id": {
 							"value": "150",
