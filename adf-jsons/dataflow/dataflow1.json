@@ -3,11 +3,105 @@
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
-			"sources": [],
-			"sinks": [],
-			"transformations": [],
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSQLemployees",
+						"type": "DatasetReference"
+					},
+					"name": "emp"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlDepartments",
+						"type": "DatasetReference"
+					},
+					"name": "dept"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlLocations",
+						"type": "DatasetReference"
+					},
+					"name": "locs"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SinkDestinationTable",
+						"type": "DatasetReference"
+					},
+					"name": "sinktriplet"
+				}
+			],
+			"transformations": [
+				{
+					"name": "empdept"
+				},
+				{
+					"name": "empdeptlocs"
+				}
+			],
 			"scriptLines": [
-				""
+				"source(output(",
+				"          EMPLOYEE_ID as decimal(6,0),",
+				"          FIRST_NAME as string,",
+				"          LAST_NAME as string,",
+				"          EMAIL as string,",
+				"          PHONE_NUMBER as string,",
+				"          HIRE_DATE as timestamp,",
+				"          JOB_ID as string,",
+				"          SALARY as decimal(8,2),",
+				"          COMMISSION_PCT as decimal(2,2),",
+				"          MANAGER_ID as decimal(6,0),",
+				"          DEPARTMENT_ID as decimal(4,0)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> emp",
+				"source(output(",
+				"          DEPARTMENT_ID as decimal(4,0),",
+				"          DEPARTMENT_NAME as string,",
+				"          MANAGER_ID as decimal(6,0),",
+				"          LOCATION_ID as decimal(4,0)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> dept",
+				"source(output(",
+				"          LOCATION_ID as decimal(4,0),",
+				"          STREET_ADDRESS as string,",
+				"          POSTAL_CODE as string,",
+				"          CITY as string,",
+				"          STATE_PROVINCE as string,",
+				"          COUNTRY_ID as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> locs",
+				"emp, dept join(emp@DEPARTMENT_ID == dept@DEPARTMENT_ID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> empdept",
+				"empdept, locs join(dept@LOCATION_ID == locs@LOCATION_ID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> empdeptlocs",
+				"empdeptlocs sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinktriplet"
 			]
 		}
 	}
