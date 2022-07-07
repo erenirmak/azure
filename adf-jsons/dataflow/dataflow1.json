@@ -29,7 +29,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "SinkDestinationTable",
+						"referenceName": "SqlServerTable1",
 						"type": "DatasetReference"
 					},
 					"name": "sinktriplet"
