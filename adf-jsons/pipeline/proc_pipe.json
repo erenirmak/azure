@@ -15,16 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[sink].[sp_getVals]",
-					"storedProcedureParameters": {
-						"empid": {
-							"value": {
-								"value": "@pipeline().parameters.pEmp",
-								"type": "Expression"
-							},
-							"type": "Int32"
-						}
-					}
+					"storedProcedureName": "[sink].[NewTable]"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureSqlDatabase1",
@@ -32,12 +23,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"pEmp": {
-				"type": "int",
-				"defaultValue": 125
-			}
-		},
 		"annotations": []
 	}
 }
