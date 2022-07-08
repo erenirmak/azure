@@ -7,7 +7,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "proc_pipe",
+					"referenceName": "proc_pipe1",
 					"type": "PipelineReference"
 				}
 			}
