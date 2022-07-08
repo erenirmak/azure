@@ -1,0 +1,25 @@
+{
+	"name": "trg_SP",
+	"properties": {
+		"description": "trigger stored procedure adf_branch git",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "proc_pipe",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15,
+				"startTime": "2022-07-08T09:05:00",
+				"timeZone": "Turkey Standard Time"
+			}
+		}
+	}
+}
